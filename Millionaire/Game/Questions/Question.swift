@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Question {
+struct Question: Codable {
     var quest: String
     var answers: [Answer]
 }
 
-struct Answer {
+struct Answer: Codable {
     var text: String
     var isCorrect: Bool
 }
@@ -46,6 +46,19 @@ class QuestionBuiler {
     
     func addAnswer(_ text: String, _ isRight: Bool) -> QuestionBuiler {
         self.answers.append(Answer(text: text, isCorrect: isRight))
+        return self
+    }
+    
+    func sortAnswers() -> QuestionBuiler {
+        var sortedAnswers: [Answer] = []
+        var answersForSorting = answers
+        for _ in 1...answersForSorting.count {
+            let randomNumber = Int.random(in: 0...answersForSorting.count - 1)
+            let randomAnswer = answersForSorting[randomNumber]
+            answersForSorting.remove(at: randomNumber)
+            sortedAnswers.append(randomAnswer)
+            answers = sortedAnswers
+        }
         return self
     }
     

@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+enum QuestionQueue {
+    case direct, reverse, random
+}
